@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simplified Grid Areas - grid-areas-[] 만 지원</title>
+  <style>
+    /* Import Tailwind CSS v4 */
+    @import url('https://unpkg.com/tailwindcss@next/dist/tailwind.min.css');
+    
+    /* Simplified syntax - only grid-areas-[] pattern */
+    .grid-areas-\[hero-image\2c title\3b hero-image\2c subheading\3b hero-image\2c details-list\3b hero-image\2c cta\] {
+      grid-template-areas: 
+        "hero-image title"
+        "hero-image subheading" 
+        "hero-image details-list"
+        "hero-image cta";
+    }
+    
+    .grid-areas-\[nav\2c nav\2c nav\3b sidebar\2c main\2c ads\3b footer\2c footer\2c footer\] {
+      grid-template-areas:
+        "nav nav nav"
+        "sidebar main ads"
+        "footer footer footer";
+    }
+    
+    .grid-areas-\[area1\2c area2\2c area3\] {
+      grid-template-areas: "area1 area2 area3";
+    }
+    
+    /* Grid area utilities */
+    .grid-in-hero-image { grid-area: hero-image; }
+    .grid-in-title { grid-area: title; }
+    .grid-in-subheading { grid-area: subheading; }
+    .grid-in-details-list { grid-area: details-list; }
+    .grid-in-cta { grid-area: cta; }
+    .grid-in-nav { grid-area: nav; }
+    .grid-in-sidebar { grid-area: sidebar; }
+    .grid-in-main { grid-area: main; }
+    .grid-in-ads { grid-area: ads; }
+    .grid-in-footer { grid-area: footer; }
+    .grid-in-area1 { grid-area: area1; }
+    .grid-in-area2 { grid-area: area2; }
+    .grid-in-area3 { grid-area: area3; }
+  </style>
+</head>
+<body class="bg-gray-50 p-8">
+  <div class="max-w-6xl mx-auto space-y-12">
+    
+    <header class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">
+        🎯 Simplified Grid Areas
+      </h1>
+      <p class="text-xl text-gray-600">
+        오직 <code class="bg-gray-200 px-2 py-1 rounded">grid-areas-[]</code> 패턴만 지원
+      </p>
+      <div class="mt-4 p-4 bg-green-50 rounded-lg inline-block">
+        <div class="text-sm text-green-800">
+          <strong>📖 구문 규칙:</strong><br>
+          • 세미콜론(;) = Row 구분<br>
+          • 쉼표(,) = Column 구분
+        </div>
+      </div>
+    </header>
+
+    <!-- 지원되는 패턴들 -->
+    <section class="bg-blue-50 p-8 rounded-lg">
+      <h2 class="text-2xl font-bold mb-6">✅ 지원되는 패턴들</h2>
+      
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- 다중 행 레이아웃 -->
+        <div class="bg-white p-6 rounded-lg shadow">
+          <h3 class="text-lg font-bold text-blue-700 mb-3">🏗️ 다중 행 레이아웃</h3>
+          <code class="text-xs bg-blue-100 p-2 rounded block break-all mb-3">
+            grid-areas-[row1_col1,row1_col2;row2_col1,row2_col2]
+          </code>
+          <p class="text-sm text-gray-600">
+            세미콜론으로 행을 구분하고, 쉼표로 각 행의 컬럼을 구분
+          </p>
+        </div>
+        
+        <!-- 단일 행 레이아웃 -->
+        <div class="bg-white p-6 rounded-lg shadow">
+          <h3 class="text-lg font-bold text-green-700 mb-3">➡️ 단일 행 레이아웃</h3>
+          <code class="text-xs bg-green-100 p-2 rounded block break-all mb-3">
+            grid-areas-[col1,col2,col3]
+          </code>
+          <p class="text-sm text-gray-600">
+            쉼표로 컬럼을 구분하여 단일 행 레이아웃 생성
+          </p>
+        </div>
+        
+        <!-- 단일 영역 -->
+        <div class="bg-white p-6 rounded-lg shadow">
+          <h3 class="text-lg font-bold text-purple-700 mb-3">📦 단일 영역</h3>
+          <code class="text-xs bg-purple-100 p-2 rounded block break-all mb-3">
+            grid-areas-[main]
+          </code>
+          <p class="text-sm text-gray-600">
+            하나의 영역만 정의할 때 사용
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hero Layout 예시 -->
+    <section>
+      <h2 class="text-2xl font-bold mb-4">🎨 Hero Layout 예시</h2>
+      
+      <div class="mb-4 p-4 bg-blue-50 rounded-lg">
+        <h3 class="font-bold text-blue-900 mb-2">HTML 클래스:</h3>
+        <code class="text-sm bg-blue-100 px-2 py-1 rounded break-all">
+          grid-areas-[hero-image,title;hero-image,subheading;hero-image,details-list;hero-image,cta]
+        </code>
+      </div>
+      
+      <div class="mb-4 p-4 bg-green-50 rounded-lg">
+        <h3 class="font-bold text-green-900 mb-2">✨ 원하시던 정확한 결과:</h3>
+        <pre class="text-sm bg-green-100 p-3 rounded"><code>grid-template-areas: 
+  "hero-image title"
+  "hero-image subheading" 
+  "hero-image details-list"
+  "hero-image cta";</code></pre>
+      </div>
+
+      <div class="grid grid-areas-[hero-image,title;hero-image,subheading;hero-image,details-list;hero-image,cta] gap-4 bg-white p-6 rounded-lg shadow-lg min-h-96" 
+           style="grid-template-columns: 300px 1fr;">
+        
+        <div class="grid-in-hero-image bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
+          <div class="text-center">
+            🚀 Hero<br>
+            <small class="text-sm opacity-80">4행 전체</small>
+          </div>
+        </div>
+        
+        <div class="grid-in-title bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border-l-4 border-blue-500">
+          <h3 class="text-2xl font-bold text-gray-900">최고의 솔루션</h3>
+          <small class="text-blue-600">title 영역</small>
+        </div>
+        
+        <div class="grid-in-subheading bg-gradient-to-r from-green-50 to-emerald-50 p-4 rounded-lg border-l-4 border-green-500">
+          <p class="text-lg text-gray-700">간단한 구문으로 강력한 레이아웃을 만드세요</p>
+          <small class="text-green-600">subheading 영역</small>
+        </div>
+        
+        <div class="grid-in-details-list bg-gradient-to-r from-purple-50 to-pink-50 p-4 rounded-lg border-l-4 border-purple-500">
+          <h4 class="font-bold text-gray-900 mb-2">💫 특징:</h4>
+          <ul class="list-disc list-inside space-y-1 text-gray-700">
+            <li>오직 grid-areas-[] 패턴만 지원</li>
+            <li>세미콜론으로 행 구분</li>
+            <li>쉼표로 컬럼 구분</li>
+            <li>언더스코어 자유롭게 사용 가능</li>
+          </ul>
+          <small class="text-purple-600">details-list 영역</small>
+        </div>
+        
+        <div class="grid-in-cta bg-gradient-to-r from-orange-50 to-red-50 p-4 rounded-lg border-l-4 border-orange-500">
+          <button class="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold py-3 px-6 rounded-lg hover:from-orange-600 hover:to-red-600 transition-colors">
+            ✨ 지금 사용하기
+          </button>
+          <small class="block text-center text-orange-600 text-xs mt-2">cta 영역</small>
+        </div>
+      </div>
+    </section>
+
+    <!-- 단일 행 예시 -->
+    <section>
+      <h2 class="text-2xl font-bold mb-4">➡️ 단일 행 레이아웃 예시</h2>
+      
+      <div class="mb-4 p-4 bg-blue-50 rounded-lg">
+        <h3 class="font-bold text-blue-900 mb-2">HTML 클래스:</h3>
+        <code class="text-sm bg-blue-100 px-2 py-1 rounded">
+          grid-areas-[area1,area2,area3]
+        </code>
+      </div>
+      
+      <div class="mb-4 p-4 bg-green-50 rounded-lg">
+        <h3 class="font-bold text-green-900 mb-2">변환 결과:</h3>
+        <pre class="text-sm bg-green-100 p-3 rounded"><code>grid-template-areas: "area1 area2 area3";</code></pre>
+      </div>
+
+      <div class="grid grid-areas-[area1,area2,area3] gap-4 bg-white p-6 rounded-lg shadow-lg">
+        <div class="grid-in-area1 bg-gradient-to-br from-rose-400 to-pink-500 text-white rounded-lg flex items-center justify-center font-bold text-lg p-8">
+          Area 1
+        </div>
+        <div class="grid-in-area2 bg-gradient-to-br from-violet-400 to-purple-500 text-white rounded-lg flex items-center justify-center font-bold text-lg p-8">
+          Area 2
+        </div>
+        <div class="grid-in-area3 bg-gradient-to-br from-cyan-400 to-blue-500 text-white rounded-lg flex items-center justify-center font-bold text-lg p-8">
+          Area 3
+        </div>
+      </div>
+    </section>
+
+    <!-- 웹사이트 레이아웃 예시 -->
+    <section>
+      <h2 class="text-2xl font-bold mb-4">🌐 완전한 웹사이트 레이아웃</h2>
+      
+      <div class="mb-4 p-4 bg-blue-50 rounded-lg">
+        <h3 class="font-bold text-blue-900 mb-2">HTML 클래스:</h3>
+        <code class="text-sm bg-blue-100 px-2 py-1 rounded break-all">
+          grid-areas-[nav,nav,nav;sidebar,main,ads;footer,footer,footer]
+        </code>
+      </div>
+
+      <div class="grid grid-areas-[nav,nav,nav;sidebar,main,ads;footer,footer,footer] gap-4 bg-white p-6 rounded-lg shadow-lg min-h-80" 
+           style="grid-template-columns: 200px 1fr 200px; grid-template-rows: auto 1fr auto;">
+        
+        <nav class="grid-in-nav bg-gradient-to-r from-slate-700 to-slate-900 text-white p-4 rounded-lg">
+          <div class="flex justify-between items-center">
+            <h3 class="font-bold">🧭 Navigation</h3>
+            <div class="flex gap-4 text-sm">
+              <a href="#" class="hover:text-blue-300">Home</a>
+              <a href="#" class="hover:text-blue-300">About</a>
+              <a href="#" class="hover:text-blue-300">Contact</a>
+            </div>
+          </div>
+        </nav>
+        
+        <aside class="grid-in-sidebar bg-gradient-to-b from-gray-100 to-gray-200 p-4 rounded-lg">
+          <h3 class="font-bold text-gray-800 mb-3">📂 Sidebar</h3>
+          <div class="space-y-2">
+            <div class="p-2 bg-white rounded shadow-sm text-sm">메뉴 1</div>
+            <div class="p-2 bg-white rounded shadow-sm text-sm">메뉴 2</div>
+            <div class="p-2 bg-white rounded shadow-sm text-sm">메뉴 3</div>
+          </div>
+        </aside>
+        
+        <main class="grid-in-main bg-white p-6 rounded-lg border-2 border-gray-100">
+          <h3 class="text-xl font-bold text-gray-900 mb-4">📄 Main Content</h3>
+          <div class="prose prose-sm">
+            <p class="text-gray-700 mb-4">
+              <strong>grid-areas-[]</strong> 패턴만 지원하는 단순하고 강력한 
+              그리드 레이아웃 시스템입니다.
+            </p>
+            <div class="p-4 bg-blue-50 rounded-lg">
+              <h4 class="font-bold text-blue-900 mb-2">✨ 핵심 장점</h4>
+              <ul class="text-sm text-blue-800 space-y-1">
+                <li>• 하나의 패턴으로 모든 레이아웃 처리</li>
+                <li>• 직관적인 세미콜론/쉼표 구분자</li>
+                <li>• 언더스코어 자유 사용</li>
+                <li>• 간단한 학습 곡선</li>
+              </ul>
+            </div>
+          </div>
+        </main>
+        
+        <div class="grid-in-ads bg-gradient-to-b from-amber-100 to-orange-100 p-4 rounded-lg">
+          <h3 class="font-bold text-orange-800 mb-3">📢 Ads</h3>
+          <div class="space-y-2">
+            <div class="p-2 bg-amber-200 rounded text-xs text-center">Ad 1</div>
+            <div class="p-2 bg-amber-200 rounded text-xs text-center">Ad 2</div>
+          </div>
+        </div>
+        
+        <footer class="grid-in-footer bg-gradient-to-r from-gray-600 to-gray-800 text-white p-4 rounded-lg">
+          <div class="flex justify-between items-center text-sm">
+            <span>© 2024 Grid Areas</span>
+            <span>Simplified & Powerful</span>
+          </div>
+        </footer>
+      </div>
+    </section>
+
+    <!-- 사용법 가이드 -->
+    <section class="bg-gray-100 p-8 rounded-lg">
+      <h2 class="text-2xl font-bold mb-6">📖 사용법 가이드</h2>
+      
+      <div class="grid md:grid-cols-2 gap-6">
+        
+        <!-- 기본 구문 -->
+        <div class="bg-white p-6 rounded-lg shadow">
+          <h3 class="text-lg font-bold text-gray-900 mb-4">📝 기본 구문</h3>
+          <div class="space-y-3 text-sm">
+            <div class="p-3 bg-blue-50 rounded">
+              <strong class="text-blue-900">다중 행:</strong><br>
+              <code class="text-xs">grid-areas-[row1col1,row1col2;row2col1,row2col2]</code>
+            </div>
+            <div class="p-3 bg-green-50 rounded">
+              <strong class="text-green-900">단일 행:</strong><br>
+              <code class="text-xs">grid-areas-[col1,col2,col3]</code>
+            </div>
+            <div class="p-3 bg-purple-50 rounded">
+              <strong class="text-purple-900">단일 영역:</strong><br>
+              <code class="text-xs">grid-areas-[main]</code>
+            </div>
+          </div>
+        </div>
+
+        <!-- CSS 로드 방법 -->
+        <div class="bg-white p-6 rounded-lg shadow">
+          <h3 class="text-lg font-bold text-gray-900 mb-4">⚙️ CSS 로드 방법</h3>
+          <pre class="text-xs bg-gray-900 text-green-400 p-3 rounded"><code>/* main.css */
+@import 'tailwindcss';
+@plugin 'tailwindcss-grid-template-areas/plugin.js';</code></pre>
+          <p class="text-sm text-gray-600 mt-3">
+            Tailwind CSS v4의 @plugin 디렉티브를 사용해 JavaScript 로직이 포함된 
+            플러그인을 로드합니다.
+          </p>
+        </div>
+      </div>
+
+      <!-- 주요 특징 -->
+      <div class="mt-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg">
+        <h4 class="font-bold text-indigo-900 mb-3">🎯 주요 특징</h4>
+        <div class="grid md:grid-cols-4 gap-4 text-sm">
+          <div class="text-center">
+            <div class="text-2xl mb-2">🎯</div>
+            <strong>단순함</strong><br>
+            <span class="text-gray-600">하나의 패턴만</span>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl mb-2">⚡</div>
+            <strong>직관적</strong><br>
+            <span class="text-gray-600">명확한 구분자</span>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl mb-2">🔧</div>
+            <strong>유연함</strong><br>
+            <span class="text-gray-600">언더스코어 자유</span>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl mb-2">🚀</div>
+            <strong>강력함</strong><br>
+            <span class="text-gray-600">모든 레이아웃 지원</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>

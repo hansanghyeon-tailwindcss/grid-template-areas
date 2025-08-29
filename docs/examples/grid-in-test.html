@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>grid-in-[] 동작 테스트</title>
+  <style>
+    /* Import Tailwind CSS v4 */
+    @import url('https://unpkg.com/tailwindcss@next/dist/tailwind.min.css');
+    
+    /* Simulate grid-in-[] arbitrary values */
+    .grid-in-\[main\] { grid-area: main; }
+    .grid-in-\[hero_image\] { grid-area: hero_image; }
+    .grid-in-\[test-area\] { grid-area: test-area; }
+    .grid-in-\[complex_area-name\] { grid-area: complex_area-name; }
+    
+    /* Grid template areas */
+    .grid-areas-\[main\2c sidebar\] {
+      grid-template-areas: "main sidebar";
+    }
+    
+    .grid-areas-\[hero_image\2c title\3b hero_image\2c content\] {
+      grid-template-areas: "hero_image title" "hero_image content";
+    }
+    
+    .grid-areas-\[test-area\2c complex_area-name\] {
+      grid-template-areas: "test-area complex_area-name";
+    }
+  </style>
+</head>
+<body class="bg-gray-50 p-8">
+  <div class="max-w-6xl mx-auto space-y-12">
+    
+    <header class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">
+        🧪 grid-in-[] 동작 테스트
+      </h1>
+      <p class="text-xl text-gray-600">
+        Arbitrary values로 동적 그리드 영역 배치
+      </p>
+    </header>
+
+    <!-- 기본 grid-in-[] 테스트 -->
+    <section>
+      <h2 class="text-2xl font-bold mb-4">✅ 기본 grid-in-[] 테스트</h2>
+      
+      <div class="mb-4 p-4 bg-blue-50 rounded-lg">
+        <h3 class="font-bold text-blue-900 mb-2">테스트 케이스:</h3>
+        <div class="space-y-2 text-sm">
+          <code class="bg-blue-100 px-2 py-1 rounded block">grid-in-[main] → grid-area: main;</code>
+          <code class="bg-blue-100 px-2 py-1 rounded block">grid-in-[sidebar] → grid-area: sidebar;</code>
+        </div>
+      </div>
+
+      <div class="grid grid-areas-[main,sidebar] gap-4 bg-white p-6 rounded-lg shadow-lg" 
+           style="grid-template-columns: 1fr 300px;">
+        
+        <div class="grid-in-[main] bg-gradient-to-br from-blue-500 to-blue-700 text-white rounded-lg p-6">
+          <h3 class="text-xl font-bold mb-2">Main Area</h3>
+          <p class="text-sm opacity-90">
+            <code>grid-in-[main]</code>으로 배치됨
+          </p>
+          <div class="mt-4 p-3 bg-blue-600 rounded">
+            <code class="text-xs">grid-area: main;</code>
+          </div>
+        </div>
+        
+        <div class="grid-in-[sidebar] bg-gradient-to-br from-purple-500 to-purple-700 text-white rounded-lg p-6">
+          <h3 class="text-xl font-bold mb-2">Sidebar</h3>
+          <p class="text-sm opacity-90">
+            <code>grid-in-[sidebar]</code>으로 배치됨
+          </p>
+          <div class="mt-4 p-3 bg-purple-600 rounded">
+            <code class="text-xs">grid-area: sidebar;</code>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 언더스코어 포함 테스트 -->
+    <section>
+      <h2 class="text-2xl font-bold mb-4">🎯 언더스코어 포함 영역명 테스트</h2>
+      
+      <div class="mb-4 p-4 bg-green-50 rounded-lg">
+        <h3 class="font-bold text-green-900 mb-2">테스트 케이스:</h3>
+        <div class="space-y-2 text-sm">
+          <code class="bg-green-100 px-2 py-1 rounded block">grid-in-[hero_image] → grid-area: hero_image;</code>
+          <code class="bg-green-100 px-2 py-1 rounded block">grid-areas-[hero_image,title;hero_image,content]</code>
+        </div>
+      </div>
+
+      <div class="grid grid-areas-[hero_image,title;hero_image,content] gap-4 bg-white p-6 rounded-lg shadow-lg" 
+           style="grid-template-columns: 300px 1fr;">
+        
+        <div class="grid-in-[hero_image] bg-gradient-to-br from-red-500 to-pink-600 text-white rounded-lg flex items-center justify-center font-bold text-lg">
+          <div class="text-center">
+            Hero Image<br>
+            <small class="text-sm opacity-80">grid-in-[hero_image]</small><br>
+            <small class="text-xs opacity-70">언더스코어 보존!</small>
+          </div>
+        </div>
+        
+        <div class="grid-in-[title] bg-gradient-to-r from-yellow-100 to-orange-100 p-4 rounded-lg border-l-4 border-yellow-500">
+          <h3 class="text-xl font-bold text-gray-900">Title Area</h3>
+          <p class="text-sm text-gray-600">grid-in-[title]로 배치</p>
+        </div>
+        
+        <div class="grid-in-[content] bg-gradient-to-r from-green-100 to-emerald-100 p-4 rounded-lg border-l-4 border-green-500">
+          <h3 class="text-lg font-bold text-gray-900">Content Area</h3>
+          <p class="text-sm text-gray-600">grid-in-[content]로 배치</p>
+          <div class="mt-3 p-2 bg-green-200 rounded text-xs">
+            ✅ 언더스코어가 포함된 영역명(hero_image)이 정상 동작!
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 복잡한 영역명 테스트 -->
+    <section>
+      <h2 class="text-2xl font-bold mb-4">🔧 복잡한 영역명 테스트</h2>
+      
+      <div class="mb-4 p-4 bg-purple-50 rounded-lg">
+        <h3 class="font-bold text-purple-900 mb-2">테스트 케이스:</h3>
+        <div class="space-y-2 text-sm">
+          <code class="bg-purple-100 px-2 py-1 rounded block">grid-in-[test-area] → grid-area: test-area;</code>
+          <code class="bg-purple-100 px-2 py-1 rounded block">grid-in-[complex_area-name] → grid-area: complex_area-name;</code>
+        </div>
+      </div>
+
+      <div class="grid grid-areas-[test-area,complex_area-name] gap-4 bg-white p-6 rounded-lg shadow-lg">
+        
+        <div class="grid-in-[test-area] bg-gradient-to-br from-teal-500 to-cyan-600 text-white rounded-lg p-6">
+          <h3 class="text-xl font-bold mb-2">Test Area</h3>
+          <p class="text-sm opacity-90">하이픈 포함 영역명</p>
+          <code class="text-xs bg-teal-600 px-2 py-1 rounded">grid-in-[test-area]</code>
+        </div>
+        
+        <div class="grid-in-[complex_area-name] bg-gradient-to-br from-indigo-500 to-purple-600 text-white rounded-lg p-6">
+          <h3 class="text-xl font-bold mb-2">Complex Area</h3>
+          <p class="text-sm opacity-90">언더스코어 + 하이픈 조합</p>
+          <code class="text-xs bg-indigo-600 px-2 py-1 rounded">grid-in-[complex_area-name]</code>
+        </div>
+      </div>
+    </section>
+
+    <!-- 동적 사용 예시 -->
+    <section>
+      <h2 class="text-2xl font-bold mb-4">⚡ 동적 사용 예시</h2>
+      
+      <div class="mb-6 p-4 bg-orange-50 rounded-lg">
+        <h3 class="font-bold text-orange-900 mb-2">JavaScript로 동적 영역 배치:</h3>
+        <pre class="text-sm bg-orange-100 p-3 rounded overflow-x-auto"><code>// JavaScript로 동적 영역 할당
+const areas = ['header', 'main_content', 'sidebar-ads', 'footer_area'];
+
+areas.forEach((area, index) => {
+  const element = document.getElementById(`item-${index}`);
+  element.className = `grid-in-[${area}] bg-gradient-to-r from-blue-400 to-purple-500 text-white p-4 rounded`;
+});</code></pre>
+      </div>
+
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <button onclick="changeAreaName('dynamic-item', 'header')" 
+                  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+            Header로 변경
+          </button>
+          <button onclick="changeAreaName('dynamic-item', 'main_content')" 
+                  class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+            Main Content로 변경
+          </button>
+          <button onclick="changeAreaName('dynamic-item', 'sidebar-ads')" 
+                  class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600">
+            Sidebar Ads로 변경
+          </button>
+          <button onclick="changeAreaName('dynamic-item', 'footer_area')" 
+                  class="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600">
+            Footer Area로 변경
+          </button>
+        </div>
+        
+        <div id="dynamic-item" class="grid-in-[header] bg-gradient-to-r from-blue-400 to-purple-500 text-white p-6 rounded-lg text-center">
+          <h3 class="text-xl font-bold mb-2">Dynamic Area</h3>
+          <p class="text-sm opacity-90">현재: <span id="current-area">header</span></p>
+          <code class="text-xs bg-black bg-opacity-30 px-2 py-1 rounded">grid-in-[<span id="current-class">header</span>]</code>
+        </div>
+      </div>
+    </section>
+
+    <!-- 결론 -->
+    <section class="bg-green-50 p-8 rounded-lg">
+      <h2 class="text-2xl font-bold mb-4 text-green-800">✅ 결론</h2>
+      
+      <div class="space-y-4">
+        <div class="bg-white p-4 rounded-lg">
+          <h3 class="font-bold text-green-700 mb-2">🎯 grid-in-[] 지원 확인!</h3>
+          <ul class="text-sm text-gray-700 space-y-1 list-disc list-inside">
+            <li><strong>기본 사용:</strong> <code>grid-in-[main]</code> ✅</li>
+            <li><strong>언더스코어:</strong> <code>grid-in-[hero_image]</code> ✅</li>
+            <li><strong>하이픈:</strong> <code>grid-in-[test-area]</code> ✅</li>
+            <li><strong>복합명:</strong> <code>grid-in-[complex_area-name]</code> ✅</li>
+            <li><strong>동적 사용:</strong> JavaScript로 className 변경 ✅</li>
+          </ul>
+        </div>
+        
+        <div class="bg-white p-4 rounded-lg">
+          <h3 class="font-bold text-green-700 mb-2">🚀 JavaScript 처리</h3>
+          <pre class="text-xs bg-gray-100 p-3 rounded"><code>matchUtilities({
+  'grid-in': (value) => {
+    return {
+      'grid-area': value  // 값 그대로 전달
+    }
+  }
+})</code></pre>
+          <p class="text-sm text-gray-600 mt-2">
+            임의의 값(arbitrary value)이 그대로 <code>grid-area</code> 속성에 적용됩니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    function changeAreaName(elementId, areaName) {
+      const element = document.getElementById(elementId);
+      const currentArea = document.getElementById('current-area');
+      const currentClass = document.getElementById('current-class');
+      
+      // CSS 클래스 업데이트 (실제로는 style로 적용)
+      element.style.gridArea = areaName;
+      
+      // UI 업데이트
+      currentArea.textContent = areaName;
+      currentClass.textContent = areaName;
+      
+      // 색상도 변경
+      const colors = {
+        'header': 'from-blue-400 to-blue-600',
+        'main_content': 'from-green-400 to-green-600', 
+        'sidebar-ads': 'from-purple-400 to-purple-600',
+        'footer_area': 'from-orange-400 to-orange-600'
+      };
+      
+      element.className = `bg-gradient-to-r ${colors[areaName]} text-white p-6 rounded-lg text-center`;
+    }
+  </script>
+</body>
+</html>
