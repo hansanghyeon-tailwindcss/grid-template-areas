@@ -1,11 +1,11 @@
 # tailwindcss-grid-template-areas
 
-A powerful Tailwind CSS v4 plugin for CSS Grid template areas with intuitive semicolon syntax.
+A powerful Tailwind CSS v4 plugin for CSS Grid template areas with intuitive row/column separators.
 
 ## Features
 
 - 🎯 **Simple Syntax**: Only `grid-areas-[]` pattern with clear separators
-- ⚡ **Intuitive Separators**: Semicolon (`;`) for rows, comma (`,`) for columns
+- ⚡ **Intuitive Separators**: Pipe (`|`) for rows, comma (`,`) for columns
 - 🔧 **Underscore Freedom**: Use underscores and hyphens freely in area names
 - 📍 **Grid Area Placement**: `grid-in-[]` utilities for arbitrary area assignment
 - ⚡ **Tailwind CSS v4 Compatible**: Built for the latest Tailwind CSS v4
@@ -36,26 +36,32 @@ Add the plugin to your main CSS file:
   tailwind.config = {
     plugins: [
       function({ matchUtilities }) {
+        const normalizeValue = (value) => {
+          return value.replace(/\\\|/g, '|').replace(/ /g, '_')
+        }
+
         matchUtilities({
           'grid-areas': (value) => {
-            // Semicolon for rows, comma for columns
-            if (value.includes(';')) {
-              const rows = value.split(';').map(row => {
+            const normalizedValue = normalizeValue(value)
+
+            // Pipe for rows, comma for columns
+            if (normalizedValue.includes('|')) {
+              const rows = normalizedValue.split('|').map(row => {
                 const columns = row.split(',')
-                return `"${columns.join(' ')}"`;
+                return `"${columns.join(' ')}"`
               })
               return { 'grid-template-areas': rows.join(' ') }
             }
             // Single row handling
-            if (value.includes(',')) {
-              const columns = value.split(',')
+            if (normalizedValue.includes(',')) {
+              const columns = normalizedValue.split(',')
               return { 'grid-template-areas': `"${columns.join(' ')}"` }
             }
-            return { 'grid-template-areas': `"${value}"` }
+            return { 'grid-template-areas': `"${normalizedValue}"` }
           }
         })
         matchUtilities({
-          'grid-in': (value) => ({ 'grid-area': value })
+          'grid-in': (value) => ({ 'grid-area': normalizeValue(value) })
         })
       }
     ]
@@ -66,7 +72,7 @@ Add the plugin to your main CSS file:
 ## Syntax Guide
 
 ### Core Rules
-- **Semicolon (`;`)**: Separates rows
+- **Pipe (`|`)**: Separates rows
 - **Comma (`,`)**: Separates columns within a row
 - **Underscore (`_`)**: Allowed in area names
 - **Hyphen (`-`)**: Allowed in area names
@@ -84,7 +90,7 @@ Generates: `grid-template-areas: "main sidebar"`
 
 #### Multi-Row Layout  
 ```html
-<div class="grid grid-areas-[nav,nav,nav;sidebar,main,ads;footer,footer,footer]">
+<div class="grid grid-areas-[nav,nav,nav|sidebar,main,ads|footer,footer,footer]">
   <nav class="grid-in-[nav]">Navigation</nav>
   <aside class="grid-in-[sidebar]">Sidebar</aside>
   <main class="grid-in-[main]">Main Content</main>
@@ -102,7 +108,7 @@ grid-template-areas:
 
 #### Hero Layout
 ```html
-<div class="grid grid-areas-[hero-image,title;hero-image,content;hero-image,cta]">
+<div class="grid grid-areas-[hero-image,title|hero-image,content|hero-image,cta]">
   <div class="grid-in-[hero-image]">Hero Image</div>
   <h1 class="grid-in-[title]">Amazing Title</h1>
   <p class="grid-in-[content]">Great content here</p>
@@ -138,11 +144,11 @@ grid-template-areas:
 ### Solution with Our Plugin
 ```html
 <!-- Simple, intuitive Tailwind utility -->
-<div class="grid grid-areas-[nav,nav,nav;sidebar,main,ads;footer,footer,footer]">
+<div class="grid grid-areas-[nav,nav,nav|sidebar,main,ads|footer,footer,footer]">
 ```
 
 ### Key Benefits
-- **Visual Structure**: Semicolons and commas mirror the actual grid layout
+- **Visual Structure**: Pipes and commas mirror the actual grid layout
 - **No Configuration**: Works immediately without theme setup
 - **Flexible Naming**: Use underscores and hyphens naturally in area names
 - **Dynamic Usage**: Perfect for JavaScript-driven layouts
@@ -168,9 +174,9 @@ areas.forEach((area, index) => {
 <!-- Different layouts for different screen sizes -->
 <div class="
   grid 
-  grid-areas-[main;sidebar] 
+  grid-areas-[main|sidebar] 
   md:grid-areas-[main,sidebar] 
-  lg:grid-areas-[nav,nav,nav;main,sidebar,ads;footer,footer,footer]
+  lg:grid-areas-[nav,nav,nav|main,sidebar,ads|footer,footer,footer]
 ">
   <!-- Grid items -->
 </div>

@@ -60,8 +60,8 @@ The plugin supports arbitrary values for dynamic grid layouts:
 
 #### Grid Template Areas with Arbitrary Values
 
-- `grid-areas-[header_main]` → `grid-template-areas: "header main"`
-- `grid-areas-[nav_nav,aside_main]` → `grid-template-areas: "nav nav" "aside main"`
+- `grid-areas-[header,main]` → `grid-template-areas: "header main"`
+- `grid-areas-[nav,nav|aside,main]` → `grid-template-areas: "nav nav" "aside main"`
 - `grid-areas-[var(--my-grid)]` → `grid-template-areas: var(--my-grid)`
 
 #### Grid Area Placement with Arbitrary Values
@@ -83,8 +83,9 @@ Utilities for positioning with named grid lines:
 
 When using arbitrary values:
 
-- Use underscores (`_`) for spaces: `header_main` becomes `"header main"`
-- Separate rows with commas: `nav_nav,main_main` becomes `"nav nav" "main main"`
+- Separate columns with commas: `header,main` becomes `"header main"`
+- Separate rows with pipes: `nav,nav|main,main` becomes `"nav nav" "main main"`
+- Underscores (`_`) are preserved in area names
 - CSS variables are preserved: `var(--grid)` remains `var(--grid)`
 
 ## Theme Integration
@@ -157,7 +158,7 @@ Then use them with custom utilities:
   </div>
 
   <!-- Using arbitrary grid template areas -->
-  <div class="grid grid-areas-[nav_nav_nav,aside_main_ads] gap-4 mt-8">
+  <div class="grid grid-areas-[nav,nav,nav|aside,main,ads] gap-4 mt-8">
     <nav class="grid-in-[nav] bg-indigo-500 text-white p-4">Navigation</nav>
     <aside class="grid-in-[aside] bg-gray-200 p-4">Aside</aside>
     <main class="grid-in-[main] bg-white p-4">Main</main>
@@ -175,8 +176,8 @@ Combine with Tailwind's responsive utilities:
 <div class="
   grid gap-4
   grid-areas-[header,main,footer]
-  md:grid-areas-[header_header,sidebar_main,footer_footer]
-  lg:grid-areas-[nav_nav_nav,sidebar_main_ads,footer_footer_footer]
+  md:grid-areas-[header,header|sidebar,main|footer,footer]
+  lg:grid-areas-[nav,nav,nav|sidebar,main,ads|footer,footer,footer]
 ">
   <!-- Grid items -->
 </div>
@@ -203,8 +204,8 @@ Supported browsers:
 
 ### Invalid arbitrary value?
 
-- Use underscores for spaces: `header_main` not `header main`  
-- Use commas to separate rows: `nav_nav,main_main`
+- Use commas to separate columns: `header,main` not `header main`  
+- Use pipes to separate rows: `nav,nav|main,main`
 - Quote special characters if needed
 
 ### TypeScript support

@@ -9,7 +9,7 @@
     @import url('https://unpkg.com/tailwindcss@next/dist/tailwind.min.css');
     
     /* Simplified syntax - only grid-areas-[] pattern */
-    .grid-areas-\[hero-image\2c title\3b hero-image\2c subheading\3b hero-image\2c details-list\3b hero-image\2c cta\] {
+    .grid-areas-\[hero-image\2c title\7c hero-image\2c subheading\7c hero-image\2c details-list\7c hero-image\2c cta\] {
       grid-template-areas: 
         "hero-image title"
         "hero-image subheading" 
@@ -17,7 +17,7 @@
         "hero-image cta";
     }
     
-    .grid-areas-\[nav\2c nav\2c nav\3b sidebar\2c main\2c ads\3b footer\2c footer\2c footer\] {
+    .grid-areas-\[nav\2c nav\2c nav\7c sidebar\2c main\2c ads\7c footer\2c footer\2c footer\] {
       grid-template-areas:
         "nav nav nav"
         "sidebar main ads"
@@ -57,7 +57,7 @@
       <div class="mt-4 p-4 bg-green-50 rounded-lg inline-block">
         <div class="text-sm text-green-800">
           <strong>📖 구문 규칙:</strong><br>
-          • 세미콜론(;) = Row 구분<br>
+          • 파이프(|) = Row 구분<br>
           • 쉼표(,) = Column 구분
         </div>
       </div>
@@ -72,10 +72,10 @@
         <div class="bg-white p-6 rounded-lg shadow">
           <h3 class="text-lg font-bold text-blue-700 mb-3">🏗️ 다중 행 레이아웃</h3>
           <code class="text-xs bg-blue-100 p-2 rounded block break-all mb-3">
-            grid-areas-[row1_col1,row1_col2;row2_col1,row2_col2]
+            grid-areas-[row1_col1,row1_col2|row2_col1,row2_col2]
           </code>
           <p class="text-sm text-gray-600">
-            세미콜론으로 행을 구분하고, 쉼표로 각 행의 컬럼을 구분
+            파이프로 행을 구분하고, 쉼표로 각 행의 컬럼을 구분
           </p>
         </div>
         
@@ -110,7 +110,7 @@
       <div class="mb-4 p-4 bg-blue-50 rounded-lg">
         <h3 class="font-bold text-blue-900 mb-2">HTML 클래스:</h3>
         <code class="text-sm bg-blue-100 px-2 py-1 rounded break-all">
-          grid-areas-[hero-image,title;hero-image,subheading;hero-image,details-list;hero-image,cta]
+          grid-areas-[hero-image,title|hero-image,subheading|hero-image,details-list|hero-image,cta]
         </code>
       </div>
       
@@ -123,7 +123,7 @@
   "hero-image cta";</code></pre>
       </div>
 
-      <div class="grid grid-areas-[hero-image,title;hero-image,subheading;hero-image,details-list;hero-image,cta] gap-4 bg-white p-6 rounded-lg shadow-lg min-h-96" 
+      <div class="grid grid-areas-[hero-image,title|hero-image,subheading|hero-image,details-list|hero-image,cta] gap-4 bg-white p-6 rounded-lg shadow-lg min-h-96" 
            style="grid-template-columns: 300px 1fr;">
         
         <div class="grid-in-hero-image bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
@@ -147,7 +147,7 @@
           <h4 class="font-bold text-gray-900 mb-2">💫 특징:</h4>
           <ul class="list-disc list-inside space-y-1 text-gray-700">
             <li>오직 grid-areas-[] 패턴만 지원</li>
-            <li>세미콜론으로 행 구분</li>
+            <li>파이프로 행 구분</li>
             <li>쉼표로 컬럼 구분</li>
             <li>언더스코어 자유롭게 사용 가능</li>
           </ul>
@@ -199,11 +199,11 @@
       <div class="mb-4 p-4 bg-blue-50 rounded-lg">
         <h3 class="font-bold text-blue-900 mb-2">HTML 클래스:</h3>
         <code class="text-sm bg-blue-100 px-2 py-1 rounded break-all">
-          grid-areas-[nav,nav,nav;sidebar,main,ads;footer,footer,footer]
+          grid-areas-[nav,nav,nav|sidebar,main,ads|footer,footer,footer]
         </code>
       </div>
 
-      <div class="grid grid-areas-[nav,nav,nav;sidebar,main,ads;footer,footer,footer] gap-4 bg-white p-6 rounded-lg shadow-lg min-h-80" 
+      <div class="grid grid-areas-[nav,nav,nav|sidebar,main,ads|footer,footer,footer] gap-4 bg-white p-6 rounded-lg shadow-lg min-h-80" 
            style="grid-template-columns: 200px 1fr 200px; grid-template-rows: auto 1fr auto;">
         
         <nav class="grid-in-nav bg-gradient-to-r from-slate-700 to-slate-900 text-white p-4 rounded-lg">
@@ -237,7 +237,7 @@
               <h4 class="font-bold text-blue-900 mb-2">✨ 핵심 장점</h4>
               <ul class="text-sm text-blue-800 space-y-1">
                 <li>• 하나의 패턴으로 모든 레이아웃 처리</li>
-                <li>• 직관적인 세미콜론/쉼표 구분자</li>
+                <li>• 직관적인 파이프/쉼표 구분자</li>
                 <li>• 언더스코어 자유 사용</li>
                 <li>• 간단한 학습 곡선</li>
               </ul>
@@ -274,7 +274,7 @@
           <div class="space-y-3 text-sm">
             <div class="p-3 bg-blue-50 rounded">
               <strong class="text-blue-900">다중 행:</strong><br>
-              <code class="text-xs">grid-areas-[row1col1,row1col2;row2col1,row2col2]</code>
+              <code class="text-xs">grid-areas-[row1col1,row1col2|row2col1,row2col2]</code>
             </div>
             <div class="p-3 bg-green-50 rounded">
               <strong class="text-green-900">단일 행:</strong><br>
